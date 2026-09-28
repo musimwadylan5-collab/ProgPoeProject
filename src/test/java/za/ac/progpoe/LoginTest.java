@@ -7,12 +7,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class LoginTest {
+    // Cover accepted and rejected username formats.
     @Test
     public void acceptsUsernameWithUnderscoreUpToFiveCharacters() {
         Login login = validLogin();
         assertTrue(login.checkUserName());
     }
 
+    // Verify all password complexity requirements.
     @Test
     public void rejectsUsernameWithoutUnderscoreOrOverFiveCharacters() {
         assertFalse(new Login("kyle!!!!!!!", "Ch&sec@ke99!", "+27838968976", "Ada", "Lovelace")
@@ -21,17 +23,20 @@ public class LoginTest {
                 .checkUserName());
     }
 
+    // Check the required South African international phone format.
     @Test
     public void acceptsPasswordMeetingAllComplexityRules() {
         assertTrue(validLogin().checkPasswordComplexity());
     }
 
+    // Confirm registration messages distinguish each validation failure.
     @Test
     public void rejectsPasswordMissingComplexityRequirements() {
         assertFalse(new Login("kyl_1", "password", "+27838968976", "Ada", "Lovelace")
                 .checkPasswordComplexity());
     }
 
+    // Login is unavailable before registration and requires exact credentials.
     @Test
     public void acceptsSouthAfricanInternationalCellNumber() {
         assertTrue(validLogin().checkCellPhoneNumber());

@@ -9,6 +9,7 @@ public final class LoginApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // Collect the details needed to register the account.
         System.out.println("=== Registration ===");
         System.out.print("First name: ");
         String firstName = scanner.nextLine();
@@ -33,11 +34,13 @@ public final class LoginApp {
         printValidationResult(validCellPhoneNumber, "Cell number successfully captured.",
             "Cell phone number is incorrectly formatted or does not contain an international code.");
 
+        // Do not start the login flow while any registration field is invalid.
         if (!validUsername || !validPassword || !validCellPhoneNumber) {
             System.out.println("Registration could not be completed. Please restart and correct the details.");
             return;
         }
 
+        // Registration succeeded, so prompt for credentials to authenticate.
         System.out.println(account.registerUser());
         System.out.println("=== Login ===");
         System.out.print("Username: ");

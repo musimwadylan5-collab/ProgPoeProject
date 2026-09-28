@@ -3,8 +3,10 @@ package za.ac.progpoe;
 import java.util.regex.Pattern;
 
 public final class Login {
+    // Require 8+ characters, an uppercase letter, a digit, and a non-whitespace symbol.
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(
             "^(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9\\s]).{8,}$");
+    // South African mobile format: +27, a 6-8 prefix, then eight digits.
     private static final Pattern CELL_PHONE_PATTERN = Pattern.compile("^\\+27[6-8]\\d{8}$");
 
     private final String username;
@@ -25,6 +27,7 @@ public final class Login {
     }
 
     public boolean checkUserName() {
+        // The assignment requires an underscore and a maximum length of five.
         return username.contains("_") && username.length() <= 5;
     }
 
@@ -47,11 +50,13 @@ public final class Login {
             return "Cell phone number is incorrectly formatted or does not contain an international code.";
         }
 
+        // Registration is committed only after every validation passes.
         registered = true;
         return "User registered successfully.";
     }
 
     public boolean loginUser(String enteredUsername, String enteredPassword) {
+        // Credentials are accepted only for a successfully registered account.
         loginSuccessful = registered
                 && username.equals(enteredUsername)
                 && password.equals(enteredPassword);
