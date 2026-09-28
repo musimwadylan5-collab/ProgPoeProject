@@ -39,8 +39,8 @@ Tests cover valid and invalid inputs, registration messages, successful authenti
 
 ## References
 
-- Oracle. [Java SE 8 `Pattern` API](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html). Reference for the regular-expression syntax used by the username, password, and cellphone checks.
-- Independent Communications Authority of South Africa (ICASA). [Numbering Plan Regulations, 2016](https://www.icasa.org.za/legislation-and-regulations/numbering-plan-regulations). National numbering-plan reference for the South African international dialing format.
-- Programming PoE assignment brief supplied with this project. Source of the required validation rules and example test data (`kyl_1`, `+27838968976`, and `08966553`).
+Independent Communications Authority of South Africa (ICASA), 2016. Numbering Plan Regulations. [online] Available at: <https://www.icasa.org.za> [Accessed 28 September 2026].
+
+Oracle, 2024. Java SE 8 Pattern API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html> [Accessed 28 September 2026].
 
 The cellphone expression is deliberately limited to the assignment's stated format; it does not verify whether a number is active or allocated to a particular carrier.
