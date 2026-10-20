@@ -1,6 +1,6 @@
 # ProgPoeProject
 
-A Java console application for registering an account and verifying login details. It uses the `Login` class to validate a username, password, and South African mobile number before allowing authentication.
+A Java console-only application for registering an account, verifying login details, and using the QuickChat message menu after successful login. All user interaction is through text prompts in the terminal; the application does not use GUIs or `JOptionPane`. The `Login` class validates a username, password, and South African mobile number before allowing authentication.
 
 ## Requirements
 
@@ -9,14 +9,15 @@ A Java console application for registering an account and verifying login detail
 
 ## Run
 
-From this directory, compile and launch the console application with:
+From this directory, launch the console application with Maven:
 
 ```text
-mvn package
-java -cp target/classes za.ac.progpoe.LoginApp
+mvn exec:java
 ```
 
-The application asks for first and last name, username, password, and cellphone number, then prompts for login credentials if registration succeeds.
+The application asks for first and last name, username, password, and cellphone number, then prompts for login credentials if registration succeeds. After a successful login, QuickChat asks how many messages to enter and displays a menu for sending messages, viewing the in-development recent-messages feature, or quitting.
+
+To open the project in Apache NetBeans, select **File > Open Project** and choose this repository's root folder (the folder containing `pom.xml`). NetBeans recognizes it as a Maven project. Run `za.ac.progpoe.LoginApp` as the main class.
 
 ## Validation rules
 
@@ -36,11 +37,24 @@ mvn test
 ```
 
 Tests cover valid and invalid inputs, registration messages, successful authentication, and failed authentication.
+Message tests also cover the 250-character limit, international recipient validation, generated IDs and hashes, send/discard/store choices, JSON persistence, menu flows, and the login gate. JSON serialization is provided by Google's Gson library, declared in `pom.xml`.
+
+The GitHub Actions workflow at `.github/workflows/TestJava.yml` runs the Maven test suite on pushes and pull requests.
 
 ## References
 
+Apache Maven Project, n.d. Maven Getting Started Guide. [online] Available at: <https://maven.apache.org/guides/getting-started/> [Accessed 20 October 2026].
+
+GitHub, n.d. Building and testing Java with Maven. [online] Available at: <https://docs.github.com/en/actions/tutorials/build-and-test-code/java-with-maven> [Accessed 20 October 2026].
+
+Google, 2024. Gson User Guide. [online] Available at: <https://github.com/google/gson/blob/main/UserGuide.md> [Accessed 20 October 2026].
+
 Independent Communications Authority of South Africa (ICASA), 2016. Numbering Plan Regulations. [online] Available at: <https://www.icasa.org.za> [Accessed 28 September 2026].
+
+JUnit, n.d. JUnit 4.13.2 API Documentation. [online] Available at: <https://junit.org/junit4/javadoc/4.13.2/> [Accessed 20 October 2026].
 
 Oracle, 2024. Java SE 8 Pattern API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html> [Accessed 28 September 2026].
 
-The cellphone expression is deliberately limited to the assignment's stated format; it does not verify whether a number is active or allocated to a particular carrier.
+Oracle, n.d. Java SE 8 Files API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html> [Accessed 20 October 2026].
+
+Oracle, n.d. Java SE 8 Scanner API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html> [Accessed 20 October 2026].
