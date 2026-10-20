@@ -1,4 +1,4 @@
-name: Maven tests
+name: TestJava
 
 on:
   push:
