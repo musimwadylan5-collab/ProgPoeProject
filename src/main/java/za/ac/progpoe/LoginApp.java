@@ -1,5 +1,6 @@
 package za.ac.progpoe;
 
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public final class LoginApp {
@@ -7,19 +8,21 @@ public final class LoginApp {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        run(new Scanner(System.in), System.out);
+    }
 
+    static void run(Scanner scanner, PrintStream output) {
         // Collect the details needed to register the account.
-        System.out.println("=== Registration ===");
-        System.out.print("First name: ");
+        output.println("=== Registration ===");
+        output.print("First name: ");
         String firstName = scanner.nextLine();
-        System.out.print("Last name: ");
+        output.print("Last name: ");
         String lastName = scanner.nextLine();
-        System.out.print("Username: ");
+        output.print("Username: ");
         String username = scanner.nextLine();
-        System.out.print("Password: ");
+        output.print("Password: ");
         String password = scanner.nextLine();
-        System.out.print("South African cell number (+27...): ");
+        output.print("South African cell number (+27...): ");
         String cellPhoneNumber = scanner.nextLine();
 
         Login account = new Login(username, password, cellPhoneNumber, firstName, lastName);
@@ -27,32 +30,34 @@ public final class LoginApp {
         boolean validPassword = account.checkPasswordComplexity();
         boolean validCellPhoneNumber = account.checkCellPhoneNumber();
 
-        printValidationResult(validUsername, "Username successfully captured.",
+        printValidationResult(output, validUsername, "Username successfully captured.",
             "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than five characters in length.");
-        printValidationResult(validPassword, "Password successfully captured.",
+        printValidationResult(output, validPassword, "Password successfully captured.",
             "Password is not correctly formatted; please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.");
-        printValidationResult(validCellPhoneNumber, "Cell number successfully captured.",
+        printValidationResult(output, validCellPhoneNumber, "Cell number successfully captured.",
             "Cell phone number is incorrectly formatted or does not contain an international code.");
 
         // Do not start the login flow while any registration field is invalid.
         if (!validUsername || !validPassword || !validCellPhoneNumber) {
-            System.out.println("Registration could not be completed. Please restart and correct the details.");
+            output.println("Registration could not be completed. Please restart and correct the details.");
             return;
         }
 
         // Registration succeeded, so prompt for credentials to authenticate.
-        System.out.println(account.registerUser());
-        System.out.println("=== Login ===");
-        System.out.print("Username: ");
+        output.println(account.registerUser());
+        output.println("=== Login ===");
+        output.print("Username: ");
         String enteredUsername = scanner.nextLine();
-        System.out.print("Password: ");
+        output.print("Password: ");
         String enteredPassword = scanner.nextLine();
 
-        account.loginUser(enteredUsername, enteredPassword);
-        System.out.println(account.returnLoginStatus());
+        boolean loginSuccessful = account.loginUser(enteredUsername, enteredPassword);
+        output.println(account.returnLoginStatus());
+        QuickChatApp.run(loginSuccessful, scanner, output);
     }
 
-    private static void printValidationResult(boolean valid, String successMessage, String failureMessage) {
-        System.out.println(valid ? successMessage : failureMessage);
+    private static void printValidationResult(PrintStream output, boolean valid,
+            String successMessage, String failureMessage) {
+        output.println(valid ? successMessage : failureMessage);
     }
 }
