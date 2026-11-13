@@ -59,6 +59,8 @@ The GitHub Actions workflow at `.github/workflows/TestJava.yml` checks out the p
 
 Apache Maven Project, n.d. Maven Getting Started Guide. [online] Available at: <https://maven.apache.org/guides/getting-started/> [Accessed 20 October 2026].
 
+Apache NetBeans, n.d. Working with Maven. [online] Available at: <https://netbeans.apache.org/tutorial/main/kb/docs/java/maven-quickstart/> [Accessed 13 November 2026]. Reference for opening and running this Maven project in NetBeans.
+
 GitHub, n.d. Building and testing Java with Maven. [online] Available at: <https://docs.github.com/en/actions/tutorials/build-and-test-code/java-with-maven> [Accessed 20 October 2026].
 
 Google, 2024. Gson User Guide, including deserialization into generic types using `TypeToken`. [online] Available at: <https://github.com/google/gson/blob/main/UserGuide.md> [Accessed 13 November 2026]. The stored-message JSON reader follows this generic collection approach.
@@ -69,6 +71,10 @@ JUnit, n.d. JUnit 4.13.2 API Documentation. [online] Available at: <https://juni
 
 Oracle, 2024. Java SE 8 Pattern API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html> [Accessed 28 September 2026].
 
+Oracle, 2014. Java SE 8 Arrays API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html> [Accessed 13 November 2026]. Reference for copying and searching the dynamically sized message arrays.
+
 Oracle, n.d. Java SE 8 Files API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html> [Accessed 20 October 2026].
+
+Oracle, n.d. Java SE 8 Optional API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html> [Accessed 13 November 2026]. Reference for safely representing optional message-search results.
 
 Oracle, n.d. Java SE 8 Scanner API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html> [Accessed 20 October 2026].
