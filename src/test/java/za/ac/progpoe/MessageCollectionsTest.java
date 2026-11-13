@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class MessageCollectionsTest {
     private static final String LONG_STORED_TEXT =
             "Where are you? You are late! I have asked you to be on time.";
-    private static final String SECOND_STORED_HASH = "00:1:WHEREONTIME";
+    private static final String SECOND_STORED_HASH = "00:1:WHERETIME";
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
