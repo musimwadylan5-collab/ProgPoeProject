@@ -206,7 +206,8 @@ final class QuickChatApp {
             return;
         }
         Message message = longestMessage.get();
-        output.println("Longest stored message: " + message.getMessageText());
+        output.println("Longest stored message:");
+        output.println(message.formatDetails());
     }
 
     private static void searchStoredMessageByID(Scanner scanner, PrintStream output,

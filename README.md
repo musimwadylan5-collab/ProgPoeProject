@@ -19,7 +19,7 @@ The application asks for first and last name, username, password, and cellphone 
 
 The checked-in `messages.json` file supplies two example stored messages. Stored messages created in the console are appended to that file; deleting a stored message updates both the in-memory collections and the JSON file. Run the application from the repository root so its relative `messages.json` path resolves to this file.
 
-The stored-message manager also maintains the Sent Messages, Disregarded Messages, Stored Messages, Message Hashes, and Message IDs collections as messages are processed. It reads JSON as UTF-8 and uses Gson's `TypeToken<List<Message>>` generic-type pattern to deserialize the JSON array. Imported messages without sender data are displayed with **Not recorded**; messages sent after login record the registered cellphone number as the sender.
+The stored-message manager dynamically maintains the Sent Messages, Disregarded Messages, Stored Messages, Message Hashes, and Message IDs arrays. Stored-message IDs, hashes, senders, recipients, and text are kept in parallel arrays so searching, reporting, and deletion use the matching record at each index. It reads JSON as UTF-8 and uses Gson's `TypeToken<List<Message>>` generic-type pattern to deserialize the JSON array. Imported messages without sender data are displayed with **Not recorded**; messages sent after login record the registered cellphone number as the sender.
 
 To open the project in Apache NetBeans, select **File > Open Project** and choose this repository's root folder (the folder containing `pom.xml`). NetBeans recognizes it as a Maven project. Run `za.ac.progpoe.LoginApp` as the main class.
 
@@ -40,7 +40,7 @@ Run all unit tests with:
 mvn --batch-mode test
 ```
 
-Tests cover registration and login, message validation, generated IDs and hashes, send/discard/store flows, JSON persistence, all five required Part 3 records, stored-message searches, deletion/index synchronization, report content, and empty/unknown search cases.
+Tests cover registration and login, message validation, generated IDs and hashes, send/discard/store flows, JSON persistence and console display, all five required Part 3 records, longest-message and recipient searches, ID/hash searches, deletion/index synchronization, full report content, and empty/unknown search cases.
 
 The fourth required sample uses the provided ID `0000000004` in the deterministic tests. Its value `0838884567` is treated as the sample recipient because the brief labels it “recipient/developer value”; interactive recipient validation remains the existing international `+27` format.
 

@@ -59,9 +59,15 @@ public class MessageCollectionsTest {
         }
         assertEquals(Arrays.asList("Did you get the cake?", "It is dinner time !"), sentTexts);
         assertEquals(1, messages.getDisregardedMessages().size());
+        assertEquals("Yohoooo, I am at your gate.",
+                messages.getDisregardedMessages().get(0).getMessageText());
         assertEquals(2, messages.getStoredMessages().size());
-        assertEquals(5, messages.getMessageHashes().size());
-        assertEquals(5, messages.getMessageIDs().size());
+        assertEquals(Arrays.asList(
+                "0000000001", "0000000004", "0000000003", "0000000002", "0000000005"),
+                messages.getMessageIDs());
+        assertEquals(Arrays.asList(
+                "00:0:DIDCAKE", "00:3:IT", "00:2:YOHOOOOGATE",
+                "00:1:WHERETIME", "00:4:OKYOU"), messages.getMessageHashes());
     }
 
     @Test
@@ -94,6 +100,12 @@ public class MessageCollectionsTest {
         assertFalse(messages.getMessageHashes().contains(SECOND_STORED_HASH));
         assertFalse(messages.getMessageIDs().contains("0000000002"));
         assertEquals(1, messages.getStoredMessages().size());
+        assertEquals(Arrays.asList(
+                "0000000001", "0000000004", "0000000003", "0000000005"),
+                messages.getMessageIDs());
+        assertEquals(Arrays.asList(
+                "00:0:DIDCAKE", "00:3:IT", "00:2:YOHOOOOGATE", "00:4:OKYOU"),
+                messages.getMessageHashes());
 
         MessageCollections reloadedMessages = new MessageCollections(storagePath);
         reloadedMessages.loadStoredMessages();
@@ -117,11 +129,19 @@ public class MessageCollectionsTest {
     @Test
     public void fullReportIncludesHashRecipientAndMessageForEveryStoredRecord() {
         String report = messages.formatStoredMessageReport();
-        assertEquals(true, report.contains(SECOND_STORED_HASH));
-        assertEquals(true, report.contains("Recipient: +27838884567"));
-        assertEquals(true, report.contains(LONG_STORED_TEXT));
-        assertEquals(true, report.contains("00:4:OKYOU"));
-        assertEquals(true, report.contains("Ok, I am leaving without you."));
+        String lineBreak = System.lineSeparator();
+        String firstRecord = "Message ID: 0000000002" + lineBreak
+                + "Message Hash: " + SECOND_STORED_HASH + lineBreak
+                + "Sender: Test sender" + lineBreak
+                + "Recipient: +27838884567" + lineBreak
+                + "Message: " + LONG_STORED_TEXT;
+        String secondRecord = "Message ID: 0000000005" + lineBreak
+                + "Message Hash: 00:4:OKYOU" + lineBreak
+                + "Sender: Test sender" + lineBreak
+                + "Recipient: +27838884567" + lineBreak
+                + "Message: Ok, I am leaving without you.";
+        assertEquals(true, report.contains(firstRecord));
+        assertEquals(true, report.contains(secondRecord));
     }
 
     @Test
@@ -129,8 +149,8 @@ public class MessageCollectionsTest {
         ByteArrayOutputStream capturedOutput = new ByteArrayOutputStream();
         PrintStream output = new PrintStream(capturedOutput, true, "UTF-8");
         try {
-            String input = "0\n4\n1\n3\n0000000002\n4\n+27838884567\n"
-                    + "5\nUNKNOWN-HASH\n0\n3\n";
+            String input = "0\n4\n1\n2\n3\n0000000002\n4\n+27838884567\n"
+                    + "5\nUNKNOWN-HASH\n6\n0\n3\n";
             QuickChatApp.run(true, new Scanner(input), output, storagePath, "0838884567");
         } finally {
             output.close();
@@ -138,10 +158,13 @@ public class MessageCollectionsTest {
 
         String result = capturedOutput.toString("UTF-8");
         assertTrue(result.contains("Sender: Test sender | Recipient: +27838884567"));
+        assertTrue(result.contains("Longest stored message:"));
+        assertTrue(result.contains(LONG_STORED_TEXT));
         assertTrue(result.contains("Recipient: +27838884567" + System.lineSeparator()
                 + "Message: " + LONG_STORED_TEXT));
         assertTrue(result.contains("No message found with hash UNKNOWN-HASH."));
         assertTrue(result.contains("Message: Ok, I am leaving without you."));
+        assertTrue(result.contains("=== Stored Messages Report ==="));
     }
 
     @Test
