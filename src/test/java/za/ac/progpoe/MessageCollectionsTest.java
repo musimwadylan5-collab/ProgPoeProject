@@ -138,7 +138,8 @@ public class MessageCollectionsTest {
 
         String result = capturedOutput.toString("UTF-8");
         assertTrue(result.contains("Sender: Test sender | Recipient: +27838884567"));
-        assertTrue(result.contains("Recipient: +27838884567\nMessage: " + LONG_STORED_TEXT));
+        assertTrue(result.contains("Recipient: +27838884567" + System.lineSeparator()
+                + "Message: " + LONG_STORED_TEXT));
         assertTrue(result.contains("No message found with hash UNKNOWN-HASH."));
         assertTrue(result.contains("Message: Ok, I am leaving without you."));
     }
