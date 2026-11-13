@@ -49,6 +49,7 @@
                 <version>3.5.0</version>
                 <configuration>
                     <mainClass>za.ac.progpoe.LoginApp</mainClass>
+                    <workingDirectory>${project.basedir}</workingDirectory>
                 </configuration>
             </plugin>
         </plugins>

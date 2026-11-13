@@ -21,7 +21,14 @@ The checked-in `messages.json` file supplies two example stored messages. Stored
 
 The stored-message manager dynamically maintains the Sent Messages, Disregarded Messages, Stored Messages, Message Hashes, and Message IDs arrays. Stored-message IDs, hashes, senders, recipients, and text are kept in parallel arrays so searching, reporting, and deletion use the matching record at each index. It reads JSON as UTF-8 and uses Gson's `TypeToken<List<Message>>` generic-type pattern to deserialize the JSON array. Imported messages without sender data are displayed with **Not recorded**; messages sent after login record the registered cellphone number as the sender.
 
-To open the project in Apache NetBeans, select **File > Open Project** and choose this repository's root folder (the folder containing `pom.xml`). NetBeans recognizes it as a Maven project. Run `za.ac.progpoe.LoginApp` as the main class.
+To open and run the project in Apache NetBeans:
+
+1. Select **File > Open Project** and choose the repository root (the folder containing `pom.xml`). NetBeans imports it as a Maven project.
+2. Set the project JDK to JDK 8 or later.
+3. Use **Run Project** (or run the Maven goal `exec:java`). The Maven exec plugin is configured to launch `za.ac.progpoe.LoginApp` from the repository root, so `messages.json` resolves to the checked-in sample file.
+4. Enter responses in the NetBeans Output console. All registration, login, and messaging interaction uses terminal input/output; no GUI or dialog is opened.
+
+The same Maven configuration can be run from a terminal with `mvn exec:java`.
 
 ## Validation rules
 
