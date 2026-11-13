@@ -1,0 +1,18 @@
+[
+  {
+    "messageID": "0000000002",
+    "messageNumber": 1,
+    "recipientCell": "+27838884567",
+    "messageText": "Where are you? You are late! I have asked you to be on time.",
+    "messageHash": "00:1:WHEREONTIME",
+    "senderCell": "Not recorded"
+  },
+  {
+    "messageID": "0000000005",
+    "messageNumber": 4,
+    "recipientCell": "+27838884567",
+    "messageText": "Ok, I am leaving without you.",
+    "messageHash": "00:4:OKYOU",
+    "senderCell": "Not recorded"
+  }
+]

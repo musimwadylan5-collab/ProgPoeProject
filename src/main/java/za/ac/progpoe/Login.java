@@ -69,4 +69,11 @@ public final class Login {
         }
         return String.format("Welcome %s, %s it is great to see you.", firstName, lastName);
     }
+
+    /**
+     * Returns the registered cellphone number for use as a message sender.
+     */
+    public String getCellPhoneNumber() {
+        return cellPhoneNumber;
+    }
 }

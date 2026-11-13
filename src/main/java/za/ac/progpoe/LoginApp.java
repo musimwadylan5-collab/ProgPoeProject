@@ -1,6 +1,7 @@
 package za.ac.progpoe;
 
 import java.io.PrintStream;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public final class LoginApp {
@@ -53,7 +54,8 @@ public final class LoginApp {
 
         boolean loginSuccessful = account.loginUser(enteredUsername, enteredPassword);
         output.println(account.returnLoginStatus());
-        QuickChatApp.run(loginSuccessful, scanner, output);
+        QuickChatApp.run(loginSuccessful, scanner, output, Paths.get("messages.json"),
+                account.getCellPhoneNumber());
     }
 
     private static void printValidationResult(PrintStream output, boolean valid,
