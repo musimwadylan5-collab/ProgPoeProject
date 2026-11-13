@@ -1,6 +1,6 @@
 # ProgPoeProject
 
-A Java console-only application for registering an account, verifying login details, and using the QuickChat message menu after successful login. All user interaction is through text prompts in the terminal; the application does not use GUIs or `JOptionPane`. The `Login` class validates a username, password, and South African mobile number before allowing authentication.
+A Java console-only application for registering an account, verifying login details, and using QuickChat after successful login. All user interaction is through text prompts in the terminal; the application does not use GUIs or `JOptionPane`. The `Login` class validates a username, password, and South African mobile number before allowing authentication.
 
 ## Requirements
 
@@ -15,7 +15,11 @@ From this directory, launch the console application with Maven:
 mvn exec:java
 ```
 
-The application asks for first and last name, username, password, and cellphone number, then prompts for login credentials if registration succeeds. After a successful login, QuickChat asks how many messages to enter and displays a menu for sending messages, viewing the in-development recent-messages feature, or quitting.
+The application asks for first and last name, username, password, and cellphone number, then prompts for login credentials if registration succeeds. After a successful login, QuickChat asks how many messages to enter and displays a menu to send messages, view the recent-messages placeholder, quit, or open **Stored Messages**. The stored-message menu displays sender/recipient details, finds the longest message, searches messages by ID or recipient, deletes by hash, and prints a full report.
+
+The checked-in `messages.json` file supplies two example stored messages. Stored messages created in the console are appended to that file; deleting a stored message updates both the in-memory collections and the JSON file. Run the application from the repository root so its relative `messages.json` path resolves to this file.
+
+The stored-message manager also maintains the Sent Messages, Disregarded Messages, Stored Messages, Message Hashes, and Message IDs collections as messages are processed. It reads JSON as UTF-8 and uses Gson's `TypeToken<List<Message>>` generic-type pattern to deserialize the JSON array. Imported messages without sender data are displayed with **Not recorded**; messages sent after login record the registered cellphone number as the sender.
 
 To open the project in Apache NetBeans, select **File > Open Project** and choose this repository's root folder (the folder containing `pom.xml`). NetBeans recognizes it as a Maven project. Run `za.ac.progpoe.LoginApp` as the main class.
 
@@ -30,16 +34,19 @@ The username and phone constraints use the supplied assignment test examples (`k
 
 ## Tests
 
-Run the JUnit 4 suite with:
+Run all unit tests with:
 
 ```text
-mvn test
+mvn --batch-mode test
 ```
 
-Tests cover valid and invalid inputs, registration messages, successful authentication, and failed authentication.
-Message tests also cover the 250-character limit, international recipient validation, generated IDs and hashes, send/discard/store choices, JSON persistence, menu flows, and the login gate. JSON serialization is provided by Google's Gson library, declared in `pom.xml`.
+Tests cover registration and login, message validation, generated IDs and hashes, send/discard/store flows, JSON persistence, all five required Part 3 records, stored-message searches, deletion/index synchronization, report content, and empty/unknown search cases.
 
-The GitHub Actions workflow at `.github/workflows/TestJava.yml` runs the Maven test suite on pushes and pull requests.
+The fourth required sample uses the provided ID `0000000004` in the deterministic tests. Its value `0838884567` is treated as the sample recipient because the brief labels it “recipient/developer value”; interactive recipient validation remains the existing international `+27` format.
+
+## GitHub Actions
+
+The GitHub Actions workflow at `.github/workflows/TestJava.yml` checks out the project, configures Temurin JDK 17 with Maven dependency caching, and runs the full Maven verification/test suite on every push and pull request. A failing test causes the workflow to fail.
 
 ## References
 
@@ -47,11 +54,11 @@ Apache Maven Project, n.d. Maven Getting Started Guide. [online] Available at: <
 
 GitHub, n.d. Building and testing Java with Maven. [online] Available at: <https://docs.github.com/en/actions/tutorials/build-and-test-code/java-with-maven> [Accessed 20 October 2026].
 
-Google, 2024. Gson User Guide. [online] Available at: <https://github.com/google/gson/blob/main/UserGuide.md> [Accessed 20 October 2026].
+Google, 2024. Gson User Guide, including deserialization into generic types using `TypeToken`. [online] Available at: <https://github.com/google/gson/blob/main/UserGuide.md> [Accessed 13 November 2026]. The stored-message JSON reader follows this generic collection approach.
 
 Independent Communications Authority of South Africa (ICASA), 2016. Numbering Plan Regulations. [online] Available at: <https://www.icasa.org.za> [Accessed 28 September 2026].
 
-JUnit, n.d. JUnit 4.13.2 API Documentation. [online] Available at: <https://junit.org/junit4/javadoc/4.13.2/> [Accessed 20 October 2026].
+JUnit, n.d. JUnit 4.13.2 API Documentation. [online] Available at: <https://junit.org/junit4/javadoc/4.13.2/> [Accessed 13 November 2026].
 
 Oracle, 2024. Java SE 8 Pattern API. [online] Available at: <https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html> [Accessed 28 September 2026].
 
