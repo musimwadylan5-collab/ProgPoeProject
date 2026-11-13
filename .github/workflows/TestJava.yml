@@ -15,5 +15,5 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Run unit tests
-        run: mvn --batch-mode test
+      - name: Run full Maven verification and tests
+        run: mvn --batch-mode verify
